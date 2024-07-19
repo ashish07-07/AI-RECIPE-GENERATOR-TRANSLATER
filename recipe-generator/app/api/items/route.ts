@@ -1,5 +1,24 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/app/db";
 
-export function POST(req: NextRequest) {
-  const;
+export async function POST(req: NextRequest) {
+  const items = await req.json();
+  console.log(typeof items);
+  console.log("before putting it into the database");
+  console.log(items);
+
+  await prisma.item.create({
+    data: {
+      ingredients: items,
+    },
+  });
+
+  return NextResponse.json(
+    {
+      msg: "success",
+    },
+    {
+      status: 200,
+    }
+  );
 }

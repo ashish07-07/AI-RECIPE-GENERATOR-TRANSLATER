@@ -1,10 +1,11 @@
 "use client";
 
+import axios from "axios";
 import { useState } from "react";
 
 export default function Home() {
   const [input, setinput] = useState("");
-  const [ingredients, setingredients] = useState([]);
+  const [ingredients, setingredients] = useState([""]);
 
   return (
     <div>
@@ -18,10 +19,16 @@ export default function Home() {
       ></input>
 
       <button
-        onClick={function submitre() {
+        onClick={async function submitre() {
           console.log("curser reached here baba");
           const engarray = input.split(",");
+          console.log("now lets see how it is ");
           console.log(engarray);
+          if (engarray) {
+            setingredients(engarray);
+          }
+
+          await axios.post("/api/items", ingredients);
         }}
       >
         {" "}
