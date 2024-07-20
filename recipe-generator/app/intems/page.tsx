@@ -30,7 +30,7 @@ export default function Home() {
 
   async function generaterecipe() {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const prompt = `Generate a recipe from the ingredients given only ${ingredients}dont give othe responswe plese  only give recipes only from the given ingredients only dont generate othe rrecipes`;
+    const prompt = `Generate a recipe from the ingredients given only ${ingredients}dont give othe responswe plese  only give recipes only from the given ingredients only dont generate othe rrecipes and dont use special characters give it in strings dont use # and * and all `;
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
