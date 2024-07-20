@@ -22,14 +22,6 @@ export default function Home() {
 
       <button
         onClick={async function submitre() {
-          // console.log("curser reached here baba");
-          // const engarray = input.split(",");
-          // console.log("now lets see how it is ");
-          // console.log(engarray);
-          // if (engarray) {
-          //   setingredients(engarray);
-          // }
-
           try {
             if (input) {
               const engar = input.split(",");

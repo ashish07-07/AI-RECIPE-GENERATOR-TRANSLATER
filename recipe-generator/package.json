@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/translate": "^8.3.0",
+    "@google/generative-ai": "^0.15.0",
     "@prisma/client": "^5.17.0",
     "axios": "^1.7.2",
+    "net": "^1.0.2",
     "next": "14.2.5",
     "prisma": "^5.17.0",
     "react": "^18",
