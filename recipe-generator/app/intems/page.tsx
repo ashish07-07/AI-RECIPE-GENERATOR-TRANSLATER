@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import prisma from "../db";
 import { join } from "path";
 import { Translate } from "@google-cloud/translate/build/src/v2";
+import { type } from "os";
 
 export default function Home() {
   const [input, setinput] = useState<string | null>("");
@@ -15,50 +16,61 @@ export default function Home() {
   const genAI = new GoogleGenerativeAI(
     process.env.NEXT_PUBLIC_GEMINI_API_KEY || ""
   );
-  //   const translate = new Translate({
-  //     key: process.env.NEXT_PUBLIC_GOOGLEMAPAPI_KEY,
-  //   });
-
-  //   async function Translatext(
-  //     text: string[],
-  //     langauge: string
-  //   ): Promise<string[]> {
-  //     const translatee = await translate.translate(text, langauge);
-  //     console.log(`the translated text is given below re baba ${translate}`);
-  //     return translatee;
-  //   }
 
   async function generaterecipe() {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const prompt = `Generate a recipe from the ingredients given only ${ingredients}dont give othe responswe plese  only give recipes only from the given ingredients only dont generate othe rrecipes and dont use special characters give it in strings dont use # and * and all give it in json format  only no jso keyword shuld be used `;
-    // const prompt = `Generate a recipe from the ingredients given only ${ingredients.join(
-    //   ", "
-    // )}. Only give recipes from the given ingredients. no special symbols like # and * to be used`;
+    const prompt = `Generate a recipe from the ingredients given only ${ingredients}dont give othe responses plese.  only give recipes only from the given ingredients with big instructions, only dont generate othe recipes and dont use special characters give it in strings dont use # and * and all give it in simple json format everytime  only no json keyword should be used. strict rule generate indian recipe from the given ingredients only dont include outside exta ones `;
+
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
     console.log("contole reached in this function");
     console.log(text);
-    // JSON.stringify(text);
-    // console.log(typeof text);
-    // const dataa = toString();
+
     console.log("befor to data base recepe");
-    // const dataa = await JSON.parse(text);
-    // console.log(dataa);
-    // await axios.post("/api/repgen", text);
 
-    // await Translatext(texte, "Kannada");
+    const res = await axios.post("/api/translater", text);
+    console.log("this is after part 4");
+    const data = await res.data;
 
-    await axios.post("/api/translater", text);
-    console.log("afteer post request");
+    // const speeech = data.translation;
+    // console.log(typeof speeech);
+    // const value = new SpeechSynthesisUtterance(speeech);
+    // // value.lang = "kn";
+
+    // window.speechSynthesis.speak(value);
+    //////////
+
+    const testText = "ುದತ್ಾಲ ೂಗುಾೀ";
+    const testValue = new SpeechSynthesisUtterance(testText);
+    // testValue.lang = "kn";
+    window.speechSynthesis.speak(testValue);
+
+    // console.log(speeech);
+    // const speech1 = JSON.stringify(speeech);
+    // // const speech2 = speech1.toString();
+    // console.log("befwre 2");
+    // console.log(speech1);
+    // const value = new SpeechSynthesisUtterance(speech1);
+    // value.lang = "kn";
+    // window.speechSynthesis.speak(value);
+
+    // if (speeech && typeof speeech === "object" && speeech["ಸೂಚನೆಗಳು"]) {
+    //   const instructionsText = speeech["ಸೂಚನೆಗಳು"];
+
+    //   // Create and configure the SpeechSynthesisUtterance instance
+    //   const value = new SpeechSynthesisUtterance(instructionsText);
+    //   value.lang = "kn"; // Set language code to Kannada
+
+    //   // Log the SpeechSynthesisUtterance object for debugging
+    //   console.log("SpeechSynthesisUtterance Object:", value);
+
+    //   // Speak the instructions
+    //   window.speechSynthesis.speak(value);
+    // } else {
+    //   console.error("Invalid or missing 'instructions' data:", speeech);
+    // }
   }
-
-  //   useEffect(() => {
-
-  //     console.log(
-  //       `ingredients has changed so please have alook at it ${ingredients}`
-  //     );
-  //   }, [ingredients]);
 
   return (
     <div>
@@ -67,7 +79,6 @@ export default function Home() {
         type="text"
         placeholder="enter the ingredients u want to use"
         onChange={function (e) {
-          //   setinput(e.target.value);
           setinput(e.currentTarget.value);
         }}
       ></input>
