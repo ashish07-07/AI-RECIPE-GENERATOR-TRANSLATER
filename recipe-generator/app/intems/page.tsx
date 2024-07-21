@@ -30,20 +30,27 @@ export default function Home() {
 
   async function generaterecipe() {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const prompt = `Generate a recipe from the ingredients given only ${ingredients}dont give othe responswe plese  only give recipes only from the given ingredients only dont generate othe rrecipes and dont use special characters give it in strings dont use # and * and all `;
+    const prompt = `Generate a recipe from the ingredients given only ${ingredients}dont give othe responswe plese  only give recipes only from the given ingredients only dont generate othe rrecipes and dont use special characters give it in strings dont use # and * and all give it in json format  only no jso keyword shuld be used `;
+    // const prompt = `Generate a recipe from the ingredients given only ${ingredients.join(
+    //   ", "
+    // )}. Only give recipes from the given ingredients. no special symbols like # and * to be used`;
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
     console.log("contole reached in this function");
     console.log(text);
-    console.log(typeof text);
-    const dataa = toString();
+    // JSON.stringify(text);
+    // console.log(typeof text);
+    // const dataa = toString();
     console.log("befor to data base recepe");
     // const dataa = await JSON.parse(text);
     // console.log(dataa);
     // await axios.post("/api/repgen", text);
 
     // await Translatext(texte, "Kannada");
+
+    await axios.post("/api/translater", text);
+    console.log("afteer post request");
   }
 
   //   useEffect(() => {
