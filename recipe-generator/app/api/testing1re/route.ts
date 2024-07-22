@@ -94,29 +94,29 @@
 //   });
 // }
 
-import { TextToSpeechClient } from "@google-cloud/text-to-speech";
-import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import TextToSpeech from "@google-cloud/text-to-speech";
-import fs from "fs";
-import util from "util";
+// import { TextToSpeechClient } from "@google-cloud/text-to-speech";
+// import { NextRequest, NextResponse } from "next/server";
+// import { PrismaClient } from "@prisma/client";
+// import TextToSpeech from "@google-cloud/text-to-speech";
+// import fs from "fs";
+// import util from "util";
 
-export async function POST(req: NextRequest) {
-  const client = new TextToSpeech.TextToSpeechClient();
+// export async function POST(req: NextRequest) {
+//   const client = new TextToSpeech.TextToSpeechClient();
 
-  const res = await req.json();
-  const s1 = JSON.stringify(res);
-  const text = s1.toString();
+//   const res = await req.json();
+//   const s1 = JSON.stringify(res);
+//   const text = s1.toString();
 
-  const request = {
-    input: { text },
-    voice: { languageCode: "kn-IN", ssmlGender: "NEUTRAL" },
-    audioconfig: { audioConfig: "MP3" },
-  };
+//   const request = {
+//     input: { text },
+//     voice: { languageCode: "kn-IN", ssmlGender: "NEUTRAL" },
+//     audioconfig: { audioConfig: "MP3" },
+//   };
 
-  const [response] = client.synthesizeSpeech(request);
+//   const [response] = client.synthesizeSpeech(request);
 
-  const writefile = util.promisify(fs.writeFile);
-  await writefile("output.mp3", response.audioContent, "binary");
-  console.log("Audio content written to file: output.mp3");
-}
+//   const writefile = util.promisify(fs.writeFile);
+//   await writefile("output.mp3", response.audioContent, "binary");
+//   console.log("Audio content written to file: output.mp3");
+// }

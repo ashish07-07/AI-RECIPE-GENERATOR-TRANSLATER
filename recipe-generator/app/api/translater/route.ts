@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const ab = JSON.stringify(body);
     const sc = ab.toString();
 
-    const [translation] = await translate.translate(sc, "kn");
+    const [translation] = await translate.translate(sc, "ml");
 
     return NextResponse.json({
       msg: "Translation successful",
